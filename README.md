@@ -38,3 +38,6 @@ Banner：文字介绍+开始按钮
 **Doc.**
 Topnav：左边是 logo，右边是 menu
 Content：左边是 aside，右边是 main
+
+## VSCode 插件推荐
+Vue 3 Snippets，Auto Import
