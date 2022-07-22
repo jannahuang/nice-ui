@@ -53,3 +53,6 @@ Switch 组件有以下 4 种使用情况：
 <Switch :value="false" /> <!-- 布尔值 false-->
 ```
 即当 value 为字符串 "true" 或布尔值 true 时，显示为开，其他情况显示为关。
+
+### Vue3 父子组件通信原理
+![Vue3 父子组件通信原理](https://raw.githubusercontent.com/jannahuang/blog/main/pictures/vue3%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png)
