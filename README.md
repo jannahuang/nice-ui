@@ -11,6 +11,8 @@
 * Vue3 的 Template 支持**多个根标签**，Vue2 不支持
 * Vue3 有 **createApp()**，而 Vue2 的是 new Vue()
 * createApp(**组件**)，new Vue({template, render})
+* 新 v-model 代替以前的 v-model 和 .sync
+* 新增 context.emit，与 this.$emit 作用相同
 
 ### 查看 vue-router 版本号
 > yarn info vue-router versions
@@ -56,3 +58,12 @@ Switch 组件有以下 4 种使用情况：
 
 ### Vue3 父子组件通信原理
 ![Vue3 父子组件通信原理](https://raw.githubusercontent.com/jannahuang/blog/main/pictures/vue3%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png)
+$event 的值是 emit() 的第二个参数。
+
+### Vue3 新版 v-model 用法
+要求：
+假设属性名为 value，emit() 事件名必须是 "update:value"
+效果：
+<Switch :value="checked" @update:value="checked = $event" />
+可以简写为
+<Switch v-model:value="checked" />
