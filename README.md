@@ -5,14 +5,6 @@
 > cd vue3-ui
 > yarn
 > yarn dev
-### 小知识：
-#### Vue2 和 Vue3 的区别
-90% 的写法完全一致，除了以下几点：
-* Vue3 的 Template 支持**多个根标签**，Vue2 不支持
-* Vue3 有 **createApp()**，而 Vue2 的是 new Vue()
-* createApp(**组件**)，new Vue({template, render})
-* 新 v-model 代替以前的 v-model 和 .sync
-* 新增 context.emit，与 this.$emit 作用相同
 
 ### 查看 vue-router 版本号
 > yarn info vue-router versions
@@ -56,7 +48,6 @@ Switch 组件有以下 4 种使用情况：
 ```
 即当 value 为字符串 "true" 或布尔值 true 时，显示为开，其他情况显示为关。
 
-### Vue3 父子组件通信原理
 ![Vue3 父子组件通信原理](https://raw.githubusercontent.com/jannahuang/blog/main/pictures/vue3%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png)
 $event 的值是 emit() 的第二个参数。
 
@@ -93,3 +84,12 @@ $event 的值是 emit() 的第二个参数。
 ### UI 库的 CSS 注意事项
 1. **不能使用scoped**
 2. **样式名称必须加前缀**，以区分一般的样式命名，防止被覆盖
+
+### 小知识：
+#### Vue2 和 Vue3 的区别
+90% 的写法完全一致，除了以下几点：
+* Vue3 的 Template 支持**多个根标签**，Vue2 不支持
+* Vue3 有 **createApp()**，而 Vue2 的是 new Vue()
+* createApp(**组件**)，new Vue({template, render})
+* 新 v-model 代替以前的 v-model 和 .sync
+* 新增 context.emit，与 this.$emit 作用相同
