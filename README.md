@@ -67,3 +67,29 @@ $event 的值是 emit() 的第二个参数。
 <Switch :value="checked" @update:value="checked = $event" />
 可以简写为
 <Switch v-model:value="checked" />
+
+## 实现 Button 组件
+### API 设计
+```html
+<Button
+  @click=?
+  @focus=?
+  @mouseover=?
+  theme="button or link or text"
+  level="main or normal or minor"
+  size="big normal small"
+  disabled
+  loading
+></Button>
+```
+
+### Vue3 属性绑定
+* 默认所有属性都绑定到根元素
+* 使用 inheritAttrs: false 可以取消默认绑定
+* 使用 $attrs 或者 context.attrs 获取所有属性
+* 使用 v-bind="$attrs" 批量绑定属性
+* 使用 const {size, ...rest} = context.attrs 将属性结构
+
+### UI 库的 CSS 注意事项
+1. **不能使用scoped**
+2. **样式名称必须加前缀**，以区分一般的样式命名，防止被覆盖
