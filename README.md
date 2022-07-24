@@ -143,6 +143,47 @@ export const openDialog = (options) => {
 }
 ```
 
+## 实现 Tabs 组件
+### 需求
+1. 点击 Tab 切换内容
+2. Tab 底部横线切换动画
+
+### API 设计
+```html
+<Tabs>
+  <Tab title="导航1">内容1</Tab>
+  <Tab title="导航2"><Component1 /></Tab>
+  <Tab title="导航3"><Component1 x="hi" /></Tab>
+</Tabs>
+或者
+<Tabs :data="[
+  {title: '导航1', content: '内容1'},
+  {title: '导航2', content: Component1},
+  {title: '导航3', content: h(Component1, {x:'hi'})}
+]" />
+```
+
+### 检查 Tabs 组件的子元素是否为 Tab 组件
+```typescript
+import Tab from './Tab.vue'
+export default {
+  setup(props, context) {
+    // 可以把 context log 出来看，
+    // context.slots.default() 的内容就是外部传进来的子内容
+    const defaults = context.slots.default()
+    // 对子内容进行类型检查，如果不是 Tab 就报错
+    defaults.forEach((tab) => {
+      if (tab.type !== Tab) {
+        throw new Error('Tabs 子元素必须是 Tab')
+      }
+    })
+    return {
+      defaults
+    }
+  }
+}
+```
+
 ### 小知识：
 #### Vue2 和 Vue3 的区别
 90% 的写法完全一致，除了以下几点：
