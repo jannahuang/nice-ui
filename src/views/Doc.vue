@@ -78,5 +78,12 @@ export default {
       padding-top: 70px;
     }
   }
+  > main {
+    width: calc(100% - 150px);
+    padding: 16px;
+    @media (max-width: 500px) {
+      width: 100%;
+    }
+  }
 }
 </style>
