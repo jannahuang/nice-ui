@@ -1,21 +1,23 @@
 <template>
   <template v-if="visible">
-    <div class="nice-dialog-overlay" @click="onClickOverlay"></div>
-    <div class="nice-dialog-wrapper">
-      <div class="nice-dialog">
-        <header>
-          <slot name="title" />
-          <span @click="close" class="nice-dialog-close"></span>
-        </header>
-        <main>
-          <slot name="content" />
-        </main>
-        <footer>
-          <Button level="main" @click="confirm">Confirm</Button>
-          <Button @click="cancel">Cancel</Button>
-        </footer>
+    <Teleport to='body'>
+      <div class="nice-dialog-overlay" @click="onClickOverlay"></div>
+      <div class="nice-dialog-wrapper">
+        <div class="nice-dialog">
+          <header>
+            <slot name="title" />
+            <span @click="close" class="nice-dialog-close"></span>
+          </header>
+          <main>
+            <slot name="content" />
+          </main>
+          <footer>
+            <Button level="main" @click="confirm">Confirm</Button>
+            <Button @click="cancel">Cancel</Button>
+          </footer>
+        </div>
       </div>
-    </div>
+    </Teleport>
   </template>
 </template>
 <script lang="ts">

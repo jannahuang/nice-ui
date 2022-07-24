@@ -104,6 +104,44 @@ $event 的值是 emit() 的第二个参数。
 ></Dialog>
 ```
 
+### 新组件 Teleport
+为防止 Dialog 被遮挡，可以使用 Teleport 组件，把 Dialog 移到 body 下。
+
+### 用 ts 文件创建 Dialog 组件
+```typescript
+import Dialog from './Dialog.vue'
+import { createApp, h } from 'vue'
+export const openDialog = (options) => {
+  const { title, content, confirm, cancel } = options
+  // 创建 div 标签，用于放置 Dialog
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  // 改变 visible 时，将 Dialog 组件和 div 容器销毁
+  const close = () => {
+    app.unmount(div)
+    div.remove()
+  }
+  // 创建 Dialog 组件
+  const app = createApp({
+    render() {
+      return h(Dialog, {
+        visible: true,
+        'onUpdate:visible': (newVisible) => {
+          if (newVisible === false) {
+            close()
+          }
+        },
+        confirm,
+        cancel
+      }, {
+        title, content
+      })
+    }
+  })
+  // 将 Dialog 组件添加到 div
+  app.mount(div)
+}
+```
 
 ### 小知识：
 #### Vue2 和 Vue3 的区别
