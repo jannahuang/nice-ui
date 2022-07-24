@@ -1,5 +1,5 @@
 <template>
-  <button @click="toggle" :class="{checked: value}"><span></span></button>
+  <button class="nice-switch" @click="toggle" :class="{'nice-checked': value}"><span></span></button>
 </template>
 <script lang="ts">
 import { ref } from 'vue'
@@ -18,14 +18,14 @@ export default {
 <style lang="scss" scoped>
 $h: 22px;
 $h2: $h - 4px;
-button {
+.nice-switch {
   height: $h;
   width: $h * 2;
   border: none;
   background: gray;
   border-radius: calc($h / 2);
   position: relative;
-  &.checked {
+  &.nice-checked {
     background: #1890ff;
     > span {
       left: calc(100% - #{$h2} - 2px);
@@ -37,7 +37,7 @@ button {
   &:active {
     > span { width: $h + 4px; }
   }
-  &.checked:active {
+  &.nice-checked:active {
     > span { width: $h2 + 4px; margin-left: -4px; }
   }
 }

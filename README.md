@@ -37,7 +37,7 @@ Content：左边是 aside，右边是 main
 ### VSCode 插件推荐
 Vue 3 Snippets，Auto Import
 
-## 实现 Swiich 组件
+## 实现 Switch 组件
 ### API 设计
 Switch 组件有以下 4 种使用情况：
 ```html
