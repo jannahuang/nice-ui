@@ -1,16 +1,18 @@
 <template>
   <template v-if="visible">
-    <div class="nice-dialog-overlay"></div>
+    <div class="nice-dialog-overlay" @click="onClickOverlay"></div>
     <div class="nice-dialog-wrapper">
       <div class="nice-dialog">
-        <header>标题</header>
+        <header>
+          <slot name="title" />
+          <span @click="close" class="nice-dialog-close"></span>
+        </header>
         <main>
-          <p>第一行字</p>
-          <p>第二行字</p>
+          <slot name="content" />
         </main>
         <footer>
-          <Button level="main">Confirm</Button>
-          <Button>Cancel</Button>
+          <Button level="main" @click="confirm">Confirm</Button>
+          <Button @click="cancel">Cancel</Button>
         </footer>
       </div>
     </div>
@@ -21,9 +23,48 @@ import Button from './Button.vue'
 export default {
   components: { Button },
   props: {
+    title: {
+      type: String,
+      default: '提示'
+    },
     visible: {
       type: Boolean,
       default: false
+    },
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: true
+    },
+    confirm: {
+      type: Function
+    },
+    cancel: {
+      type: Function
+    }
+  },
+  setup(props, context) {
+    const close = () => {
+      context.emit("update:visible", false)
+    }
+    const onClickOverlay = () => {
+      if (props.closeOnClickOverlay) {
+        close()
+      }
+    }
+    const confirm = () => {
+      if (props.confirm && props.confirm() !== false) {
+        close()
+      }
+    }
+    const cancel = () => {
+      context.emit("cancel")
+      close()
+    }
+    return {
+      close,
+      onClickOverlay,
+      confirm,
+      cancel
     }
   }
 }
