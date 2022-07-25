@@ -1,11 +1,13 @@
 <template>
   <div class="nice-tabs">
-    <div class="nice-tabs-nav">
+    <div class="nice-tabs-nav" ref="container">
       <div class="nice-tabs-nav-item"
         :class="{selected: t === selected}"
         @click="select(t)"
-        v-for="(t, index) in titles" :key="index">{{t}}</div>
-        <div class="nice-tabs-nav-indicator"></div>
+        v-for="(t, index) in titles" :key="index"
+        :ref="el => { if (el) navItems[index] = el }"
+      >{{t}}</div>
+        <div class="nice-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="nice-tabs-content">
       <!-- 用 component 的以下写法，可以展示子内容 -->
@@ -17,6 +19,7 @@
 </template>
 <script lang="ts">
 import Tab from './Tab.vue'
+import { ref, onMounted, onUpdated } from 'vue'
 export default {
   props: {
     selected: {
@@ -24,6 +27,29 @@ export default {
     }
   },
   setup(props, context) {
+    // 用 ts 声明 navItems 是 html div 元素的数组
+    const navItems = ref<HTMLDivElement[]>([])
+    // 选中标签元素的底部横线
+    const indicator = ref<HTMLDivElement>(null)
+    // 标签元素的外层元素
+    const container = ref<HTMLDivElement>(null)
+    const changeTab = () => {
+      // 获取标签的 div
+      const divs = navItems.value
+      // 获取选中的标签元素
+      const result = divs.filter(div => div.classList.contains('selected'))[0]
+      // 获取选中元素的宽度
+      const { width } = result.getBoundingClientRect()
+      // 然后把宽度赋值给 tab 底部的横线
+      indicator.value.style.width = width + 'px'
+
+      const { left: left1 } = container.value.getBoundingClientRect()
+      const { left: left2 } = result.getBoundingClientRect()
+      const left = left2 - left1
+      indicator.value.style.left = left + 'px'
+    }
+    onMounted(changeTab)
+    onUpdated(changeTab)
     // 可以把 context log 出来看，
     // context.slots.default() 的内容就是外部传进来的子内容
     const defaults = context.slots.default()
@@ -42,7 +68,10 @@ export default {
     return {
       defaults,
       titles,
-      select
+      select,
+      navItems,
+      indicator,
+      container
     }
   }
 }
