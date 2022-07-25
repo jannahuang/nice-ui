@@ -5,21 +5,22 @@
         :class="{selected: t === selected}"
         @click="select(t)"
         v-for="(t, index) in titles" :key="index"
-        :ref="el => { if (el) navItems[index] = el }"
+        :ref="el => { if (t === selected) selectedItem = el }"
       >{{t}}</div>
         <div class="nice-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="nice-tabs-content">
       <!-- 用 component 的以下写法，可以展示子内容 -->
-      <component class="nice-tabs-content-item"
+      <!-- <component class="nice-tabs-content-item"
         :class="{selected: c.props.title === selected}"
-        v-for="(c, index) in defaults" :is="c" :key="index" />
+        v-for="(c, index) in defaults" :is="c" :key="index" /> -->
+      <component :is="current" :key="current.props.title" />
     </div>
   </div>
 </template>
 <script lang="ts">
 import Tab from './Tab.vue'
-import { ref, onMounted, onUpdated } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 export default {
   props: {
     selected: {
@@ -27,29 +28,26 @@ export default {
     }
   },
   setup(props, context) {
-    // 用 ts 声明 navItems 是 html div 元素的数组
-    const navItems = ref<HTMLDivElement[]>([])
+    // 用 ts 声明当前选中的标签
+    const selectedItem = ref<HTMLDivElement>(null)
     // 选中标签元素的底部横线
     const indicator = ref<HTMLDivElement>(null)
     // 标签元素的外层元素
     const container = ref<HTMLDivElement>(null)
     const changeTab = () => {
-      // 获取标签的 div
-      const divs = navItems.value
-      // 获取选中的标签元素
-      const result = divs.filter(div => div.classList.contains('selected'))[0]
       // 获取选中元素的宽度
-      const { width } = result.getBoundingClientRect()
+      const { width } = selectedItem.value.getBoundingClientRect()
       // 然后把宽度赋值给 tab 底部的横线
       indicator.value.style.width = width + 'px'
 
       const { left: left1 } = container.value.getBoundingClientRect()
-      const { left: left2 } = result.getBoundingClientRect()
+      const { left: left2 } = selectedItem.value.getBoundingClientRect()
       const left = left2 - left1
       indicator.value.style.left = left + 'px'
     }
-    onMounted(changeTab)
-    onUpdated(changeTab)
+    onMounted(() => {
+      watchEffect(changeTab)
+    })
     // 可以把 context log 出来看，
     // context.slots.default() 的内容就是外部传进来的子内容
     const defaults = context.slots.default()
@@ -59,6 +57,9 @@ export default {
         throw new Error('Tabs 子标签必须是 Tab')
       }
     })
+    const current = computed(() => {
+      return defaults.find(tab => tab.props.title === props.selected)
+    })
     const titles = defaults.map(tab => {
       return tab.props.title
     })
@@ -66,10 +67,11 @@ export default {
       context.emit('update:selected', val)
     }
     return {
+      current,
       defaults,
       titles,
       select,
-      navItems,
+      selectedItem,
       indicator,
       container
     }

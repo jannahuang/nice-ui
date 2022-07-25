@@ -184,8 +184,23 @@ export default {
 }
 ```
 
-### 小知识：
-#### Vue2 和 Vue3 的区别
+### 用 JS 获取插槽内容
+```javascript
+const defaults = context.slots.default()
+```
+
+### Typescript 泛型
+```javascript
+const indicator = ref<HTMLDivElement>(null)
+```
+
+### 获取宽高和位置
+```javascript
+const { width, left } = el.getBoundingClientRect()
+```
+
+## 小知识：
+### Vue2 和 Vue3 的区别
 90% 的写法完全一致，除了以下几点：
 * Vue3 的 Template 支持**多个根标签**，Vue2 不支持
 * Vue3 有 **createApp()**，而 Vue2 的是 new Vue()
