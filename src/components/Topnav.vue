@@ -6,9 +6,9 @@
         </svg>
       </router-link>
       <ul class="menu">
-          <li>
-            <router-link to="/doc">文档</router-link>
-          </li>
+        <li>
+          <router-link to="/doc">文档</router-link>
+        </li>
       </ul>
       <svg v-if="menuButtonVisible" class="toggleAside" @click="toggleAside">
         <use xlink:href="#icon-menu"></use>
@@ -43,7 +43,7 @@ $color: #007974;
   display: flex;
   padding: 16px;
   position: relative;
-  z-index: 10;
+  z-index: 20;
   justify-content: center;
   align-items: center;
   > .logo {
