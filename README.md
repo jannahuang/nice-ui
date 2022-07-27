@@ -207,3 +207,9 @@ const { width, left } = el.getBoundingClientRect()
 * createApp(**组件**)，new Vue({template, render})
 * 新 v-model 代替以前的 v-model 和 .sync
 * 新增 context.emit，与 this.$emit 作用相同
+### 打包之后预览
+yarn build 打包之后，可以通过 http-server 启动服务预览 dist 文件。
+安装 http-server
+> yarn global add http-server
+安装之后输入命令：
+> hs dist/ -c-1
