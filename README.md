@@ -213,3 +213,141 @@ yarn build 打包之后，可以通过 http-server 启动服务预览 dist 文�
 > yarn global add http-server
 安装之后输入命令：
 > hs dist/ -c-1
+
+## 消除重复，简化代码
+引入 markdown 之后，可以发现三个 vue 文件的代码几乎一样。因此可以新建一个组件代替这三个文件。
+### 第 1 次优化：抽象组件
+观察代码可知，三个文件的区别是引入的 md 文件不同，将文件路径作为 props 传给组件。
+```javascript
+// Markdown.vue
+<template>
+  <article class="markdown-body" v-html="md">
+  </article>
+</template>
+<script lang="ts">
+export default {
+  props: {
+    path: {
+      type: String,
+      required: true
+    }
+  }
+}
+</script>
+```
+然后，可以用异步 import 方法，动态引入内容。
+```javascript
+// Markdown.vue
+<template>
+  <article class="markdown-body" v-html="content">
+  </article>
+</template>
+<script lang="ts">
+import { ref } from "vue"
+export default {
+  props: {
+    path: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
+    // content 初始值为 null
+    const content = ref<string>(null)
+    // 异步 import 文件内容，并将结果赋值给 content
+    import(props.path).then(result => {
+      content.value = result.default
+    })
+    return {
+      content
+    }
+  }
+}
+</script>
+```
+### 第 2 次优化：全局注册组件
+经过上述优化后，原本的三个 vue 文件内容如下：
+```javascript
+// 以 Intro.vue 为例
+<template>
+  <Markdown path="../markdown/intro.md" />
+</template>
+<script lang="ts">
+import Markdown from '../components/Markdown.vue'
+</script>
+```
+为了不必单独引入 Markdown 组件，可以在全局注册组件。
+```javascript
+// main.ts
+import { createApp } from "vue"
+import App from "./App.vue"
+import Markdown from './components/Markdown.vue'
+
+const app = create(App)
+app.mount("#app")
+app.component("Markdown", Markdown)
+```
+全局注册组件之后，在 vue 文件中可直接使用。因此上述文件简化为：
+```javascript
+// 以 Intro.vue 为例
+<template>
+  <Markdown path="../markdown/intro.md" />
+</template>
+```
+### 第 3 次优化：用 h() 函数代替组件
+上述优化之后，文件的代码简洁了，可是三个相似的文件显得有点多余。我们可以在 router.ts 文件中，用 vue 的 h() 函数代替组件。
+```javascript
+// router.ts
+import { createWebHashHistory, createRouter } from 'vue-router'
+import Home from './views/Home.vue'
+import Doc from './views/Doc.vue'
+import Markdown from './components/Markdown.vue'
+import { h } from 'vue'
+
+const history = createWebHashHistory()
+export const router = createRouter({
+    history,
+    routes: [
+        { path: '/', component: Home },
+        { path: '/doc',
+          component: Doc,
+          children: [
+            { path: '', component: DocDemo },
+            // h() 第一个参数传组件名，第二个参数传 props 对象，其中 key 用于区分组件进行视图刷新
+            { path: 'intro', component: h(Markdown, { path: '../markdown/intro.md', key: 'intro' }) },
+            { path: 'get-started', component: h(Markdown, { path: '../markdown/get-started.md', key: 'get-started' }) },
+            { path: 'install', component: h(Markdown, { path: '../markdown/install.md', key: 'install' }) },
+          ]
+        },
+    ]
+})
+```
+经过这步优化之后，上述三个 vue 文件可以删除了。
+### 第 4 次优化：简化 h() 调用
+然而观察上述 h() 的调用，仍然有重复的部分。继续消除重复，将重复的部分提取出来，简化 h() 调用。
+```javascript
+// router.ts
+...
+const history = createWebHashHistory()
+// 将重复的部分抽象为 md() 方法
+const md = filename => h(Markdown, { path: `../markdown/${filename}.md`, key: filename })
+export const router = createRouter({
+    history,
+    routes: [
+        { path: '/', component: Home },
+        { path: '/doc',
+          component: Doc,
+          children: [
+            { path: '', component: DocDemo },
+            // 调用 md() 方法只要传文件名就可以了
+            { path: 'intro', component: md('intro') },
+            { path: 'get-started', component: md('get-started') },
+            { path: 'install', component: md('install') },
+          ]
+        },
+    ]
+})
+```
+经过不断的消除重复，我们可以将代码简化到不能再简化。
+
+
