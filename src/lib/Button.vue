@@ -50,9 +50,9 @@ export default {
 $h: 32px;
 $border-color: #d9d9d9;
 $color: #333;
-$blue: #40a9ff;
+$blue: #5755ae;
 $radius: 4px;
-$red: red;
+$red: rgb(255, 0, 0);
 $grey: grey;
 .nice-button {
   box-sizing: border-box;

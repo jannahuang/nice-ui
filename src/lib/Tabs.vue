@@ -79,7 +79,7 @@ export default {
 }
 </script>
 <style lang="scss">
-$blue: #40a9ff;
+$blue: #5755ae;
 $color: #333;
 $border-color: #d9d9d9;
 .nice-tabs {

@@ -3,7 +3,7 @@
     <div class="topnavAndBanner">
       <Topnav />
       <div class="banner">
-          <h1>vue3-UI</h1>
+          <h1>Nice-UI</h1>
           <h2>基于 vue3 的 UI 框架</h2>
           <p class="actions">
               <a href="https://github.com">GitHub</a>
@@ -14,23 +14,26 @@
     <div class="features">
       <ul>
         <li>
-          <svg>
+          <!-- <svg>
             <use xlink:href="#icon-vue"></use>
-          </svg>
+          </svg> -->
+          <img class="icon" src="../assets/vuejs.png" />
           <h3>基于 Vue 3</h3>
           <p>骄傲地使用了 Vue 3 Composition API</p>
         </li>
         <li>
-          <svg>
+          <!-- <svg>
             <use xlink:href="#icon-ts"></use>
-          </svg>
+          </svg> -->
+          <img class="icon" src="../assets/typescript.png" />
           <h3>基于 TypeScript </h3>
           <p>源代码采用 TypeScript 书写</p>
         </li>
         <li>
-          <svg>
+          <!-- <svg>
             <use xlink:href="#icon-light"></use>
-          </svg>
+          </svg> -->
+          <img class="icon" src="../assets/light.png" />
           <h3>代码易读</h3>
           <p>每个组件的源代码都极其简洁</p>
         </li>
@@ -47,11 +50,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$green: #02bcb0;
 $border-radius: 4px;
-$color: #007974;
+$color: #5755ae;
 .topnavAndBanner {
-  background: linear-gradient(145deg, rgba(227, 255, 253, 1) 0%, rgba(183, 233, 230, 1) 100%);
+  background: rgb(250,215,229);
+  background: linear-gradient(90deg, rgba(250,215,229,1) 0%, rgba(235,220,255,1) 21%, rgba(205,228,252,1) 79%);
   clip-path: ellipse(80% 60% at 50% 40%);
 }
 
@@ -87,7 +90,7 @@ $color: #007974;
         "icon text";
       grid-template-columns: 80px auto;
       grid-template-rows: 1fr auto;
-      >svg {
+      >svg, .icon {
         grid-area: icon;
         width: 64px;
         height: 64px;
@@ -110,10 +113,10 @@ $color: #007974;
   align-items: center;
   flex-direction: column;
   > .actions {
-    padding: 8px 0;
+    padding-top: 20px;
     a {
       margin: 0 8px;
-      background: $green;
+      background: $color;
       color: white;
       display: inline-block;
       padding: 8px 24px;

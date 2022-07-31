@@ -26,7 +26,7 @@ $h2: $h - 4px;
   border-radius: calc($h / 2);
   position: relative;
   &.nice-checked {
-    background: #1890ff;
+    background: #5755ae;
     > span {
       left: calc(100% - #{$h2} - 2px);
     }

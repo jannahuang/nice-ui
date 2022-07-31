@@ -24,3 +24,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scope>
+.markdown-body a {
+  color: #5755ae !important;
+}
+</style>

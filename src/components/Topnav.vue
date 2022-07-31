@@ -1,9 +1,10 @@
 <template>
   <div class="topnav">
       <router-link to="/" class="logo">
-        <svg class="icon">
-          <use xlink:href="#icon-king"></use>
-        </svg>
+        <!-- <svg class="icon">
+          <use xlink:href="#icon-nice"></use>
+        </svg> -->
+        <img class="icon" src="../assets/nice.png" />
       </router-link>
       <ul class="menu">
         <li>
@@ -37,16 +38,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$color: #007974;
+$color: #5755ae;
 .topnav{
   color: $color;
   display: flex;
   padding: 16px;
-  position: relative;
-  z-index: 20;
-  justify-content: center;
-  align-items: center;
-  > .logo {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 20;
+    justify-content: center;
+    align-items: center;
+    > .logo {
     max-width: 6em;
     margin-right: auto;
     >svg {

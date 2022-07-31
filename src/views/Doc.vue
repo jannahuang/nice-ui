@@ -82,7 +82,7 @@ $aside-index : 10;
   }
 }
 aside {
-  background: lightblue;
+  background: #e6f0fb;
   width: 150px;
   padding: 16px 0;
   position: fixed;
@@ -94,6 +94,7 @@ aside {
   >h2 {
     margin-bottom: 4px;
     padding: 0 16px;
+    color: #5755ae;
   }
   >ol {
     >li {
