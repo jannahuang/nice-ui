@@ -216,6 +216,7 @@ yarn build 打包之后，可以通过 http-server 启动服务预览 dist 文�
 
 ## 消除重复，简化代码
 引入 markdown 之后，可以发现三个 vue 文件的代码几乎一样。因此可以新建一个组件代替这三个文件。
+![消除重复](https://github.com/jannahuang/blog/blob/main/pictures/%E6%B6%88%E9%99%A4%E9%87%8D%E5%A4%8D.png)
 ### 第 1 次优化：抽象组件
 观察代码可知，三个文件的区别是引入的 md 文件不同，将文件路径作为 props 传给组件。
 ```javascript
