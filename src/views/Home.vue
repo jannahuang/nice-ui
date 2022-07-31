@@ -25,7 +25,7 @@
           <!-- <svg>
             <use xlink:href="#icon-ts"></use>
           </svg> -->
-          <img class="icon" src="../assets/typescript.png" />
+          <img class="icon" src="../assets/ts.png" />
           <h3>基于 TypeScript </h3>
           <p>源代码采用 TypeScript 书写</p>
         </li>
@@ -33,7 +33,7 @@
           <!-- <svg>
             <use xlink:href="#icon-light"></use>
           </svg> -->
-          <img class="icon" src="../assets/light.png" />
+          <img class="icon" src="../assets/lighticon.png" />
           <h3>代码易读</h3>
           <p>每个组件的源代码都极其简洁</p>
         </li>
