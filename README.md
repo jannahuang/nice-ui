@@ -373,3 +373,6 @@ export const router = createRouter({
 2. 运行 git init; git add; git commit -m 'init';
 3. 新建远程仓库 nice-website，并关联到 dist 目录
 4. 开启 nice-website 的 Pages 功能
+
+## 项目展示
+![niceui](https://github.com/jannahuang/blog/blob/main/pictures/niceui.png)
