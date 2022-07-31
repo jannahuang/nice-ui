@@ -357,3 +357,18 @@ export const router = createRouter({
   <pre class="language-html" v-html="Prism.highlight(SwitchDemo.__sourceCode, Prism.languages.html, 'html')"></pre>
 </div>
 ```
+
+## 打包遇到的问题
+### build 之后不加载 md 文件
+这是因为 rollup 不支持动态引入，即不能在 import() 时拼接字符串。
+
+## 发布的步骤
+* 如果有 dist 目录，则删除 dist 目录
+* 在 .gitignore 添加一行 /dist/ 然后提交代码
+* 运行 yarn build 创建出最新的 dist
+* 运行 hs dist 在本地测试网站是否成功运行
+* 部署到 GitHub
+1. 运行 cd dist
+2. 运行 git init; git add; git commit -m 'init';
+3. 新建远程仓库 nice-website，并关联到 dist 目录
+4. 开启 nice-website 的 Pages 功能
