@@ -350,4 +350,10 @@ export const router = createRouter({
 ```
 经过不断的消除重复，我们可以将代码简化到不能再简化。
 
-
+## 高亮代码
+引用 prismjs 库。
+```html
+<div class="demo-code">
+  <pre class="language-html" v-html="Prism.highlight(SwitchDemo.__sourceCode, Prism.languages.html, 'html')"></pre>
+</div>
+```
