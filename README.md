@@ -376,3 +376,22 @@ export const router = createRouter({
 
 ## 项目展示
 ![niceui](https://github.com/jannahuang/blog/blob/main/pictures/niceui.png)
+
+## 将项目发布到 npm
+1. 在 package.json 里添加 files 和 main：
+```json
+{
+  "name": "nice-ui",
+  "version": "0.0.0",
+  "files": ["dist/lib/*"],
+  "main": "dist/lib/nice.js",
+  ...
+}
+```
+2. 确保在使用 npm 官方源
+在终端输入 npm config get registry，看返回是否是 https://registry.npmjs.org/。
+不是的话则用命令 npm config get registry https://registry.npmjs.org/ 更改。
+3. 去 npm 官网注册账号
+注册完之后，在终端输入 npm login，然后输入用户名、密码和邮箱进行登录。
+4. 运行 npm publish 发布项目
+5. 用 npm logout 退出登录

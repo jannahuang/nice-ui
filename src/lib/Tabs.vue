@@ -46,7 +46,7 @@ export default {
       indicator.value.style.left = left + 'px'
     }
     onMounted(() => {
-      watchEffect(changeTab)
+      watchEffect(changeTab, { flush: 'post' })
     })
     // 可以把 context log 出来看，
     // context.slots.default() 的内容就是外部传进来的子内容
